@@ -15,6 +15,7 @@ type MySlideChildData = {
   imageAspectRatio: string;
   buttonLink: string;
   textAnimation: boolean;
+  headingColor: string;
 };
 
 type MySlideChildProps = HydrogenComponentProps<
@@ -32,6 +33,7 @@ let MySlideChild = forwardRef<HTMLElement, MySlideChildProps>((props, ref) => {
     imageAspectRatio,
     buttonLink,
     textAnimation,
+    headingColor,
     ...rest
   } = props;
   return (
@@ -50,7 +52,12 @@ let MySlideChild = forwardRef<HTMLElement, MySlideChildProps>((props, ref) => {
             textAnimation ? 'animate-bounce' : '',
           )}
         >
-          <h2 className="text-3xl font-bold mb-4 animate-fadeIn">{heading}</h2>
+          <h2
+            style={{color: headingColor}}
+            className={clsx('text-3xl font-bold mb-4 animate-fadeIn')}
+          >
+            {heading}
+          </h2>
           <p className="text-lg">
             {' '}
             <div
@@ -90,6 +97,12 @@ export let schema: HydrogenComponentSchema = {
           name: 'heading',
           defaultValue: 'Heading',
           placeholder: 'Enter section heading',
+        },
+        {
+          type: 'color',
+          label: 'Heading Color',
+          name: 'headingColor',
+          defaultValue: '#FFFFFF',
         },
         {
           type: 'richtext',

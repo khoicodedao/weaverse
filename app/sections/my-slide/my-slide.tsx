@@ -24,6 +24,7 @@ let MySlideShow = forwardRef<HTMLElement, MySlideShowProps>((props, ref) => {
     children,
     ...rest
   } = props;
+  //=====  plugin function
   const autoSlide: KeenSliderPlugin = (slider) => {
     let timeout: ReturnType<typeof setTimeout>;
     let mouseOver = false;
@@ -68,13 +69,14 @@ let MySlideShow = forwardRef<HTMLElement, MySlideShowProps>((props, ref) => {
     },
   });
   const [sliderRef, instanceRef] = useKeenSlider(options, plugin);
+  // ===== enable loop function
   useEffect(() => {
     setOptions((prevOptions) => ({
       ...prevOptions,
       loop: enableLoop,
     }));
   }, [enableLoop]);
-
+  // ==== enable auto slide function
   useEffect(() => {
     if (enableAutoplay) {
       setPlugin((prev) => [...prev, autoSlide]);
@@ -84,6 +86,7 @@ let MySlideShow = forwardRef<HTMLElement, MySlideShowProps>((props, ref) => {
       instanceRef.current?.update();
     }
   }, [enableAutoplay, instanceRef]);
+  // ==== update slide
   useEffect(() => {
     if (instanceRef) {
       instanceRef.current?.update();
@@ -107,6 +110,7 @@ let MySlideShow = forwardRef<HTMLElement, MySlideShowProps>((props, ref) => {
           ))}
         </div>
         <div>
+          {/* ===== Navigation section ====== */}
           {showNavigation && loaded && instanceRef.current && (
             <div className="dots relative top-[-33px]">
               {[
